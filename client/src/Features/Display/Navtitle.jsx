@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 import {
   AppBar,
-  Button,
-  Tab,
-  Tabs,
   Toolbar,
   Typography,
-  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import triPPPimage from "../../Assets/triPPPimage.png";
 import MuiDrawertwo from "./MuiDrawertwo";
 import Navbar from "./Navbar";
+import LoginButton from "../../Components/Auth/LoginButton";
 
 const Header = () => {
   const [value, setValue] = useState();
@@ -39,7 +36,9 @@ const Header = () => {
           {/* ) : ( */}
           <></>
         </Toolbar>
+        <LoginButton />
       </AppBar>
+      
     </React.Fragment>
   );
 };
