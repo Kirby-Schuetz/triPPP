@@ -21,7 +21,7 @@ const createUser = async ({
     VALUES($1, $2, $3, $4, $5)
     RETURNING *;
     `,
-    [email, profilePicture, createdAtFormatted, updatedAtFormatted, sub]
+    [email, profilePicture, createdAtFormatted, updatedAtFormatted, sub],
   );
   return user;
 };
