@@ -16,8 +16,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import triPPPimage from "../../Assets/triPPPimage.png";
 import LoginButton from '../Auth/LoginButton';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ['Trips', 'Pricing', 'Blog'];
+const settings = ['Profile', 'Account', 'Logout'];
 
 function ResponsiveAppBar() {
     const { user, isAuthenticated, logout } = useAuth0();
@@ -56,7 +56,6 @@ function ResponsiveAppBar() {
                 variant="h6"
                 noWrap
                 component="a"
-                href="#app-bar-with-responsive-menu"
                 sx={{
                     mr: 2,
                     display: { xs: 'none', md: 'flex' },
@@ -144,7 +143,7 @@ function ResponsiveAppBar() {
                             <>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                    <Avatar alt="Default User Image" src={user.picture} />
                                     </IconButton>
                                 </Tooltip>
                                 <Menu
