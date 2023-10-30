@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha 'test/**/*.test.js'",
+    "test": "nyc mocha --exit --reporter mocha-lcov-reporter 'test/api/*.test.js'",
+    "test:api": "mocha --detect-open-handles 'test/api/*.test.js'",
+    "coverage": "nyc report --reporter=text-loc | coveralls",
     "seed": "node ./db/seed.js",
     "start": "nodemon index.js"
   },
@@ -26,7 +28,9 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.0",
     "mocha": "^10.2.0",
+    "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^3.0.1",
+    "nyc": "^15.1.0",
     "sinon": "^17.0.0",
     "supertest": "^6.3.3"
   }

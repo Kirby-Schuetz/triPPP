@@ -1,25 +1,25 @@
 const usersRepository = require('../db/repository/usersRepository');
 
 async function getUser(id) {
-  let user;
-
   try {
-    user = await usersRepository.getUserBySub(id);
+    const user = await usersRepository.getUserBySub(id);
+    return user;
   } catch (error) {
+    /* istanbul ignore next */
     console.error('Get User Error: ', error.message);
+    throw error;
   }
-  return user;
 }
 
 async function createUser(userObj) {
-  let user;
   try {
-    user = await usersRepository.createUser(userObj);
+    const user = await usersRepository.createUser(userObj);
     return user;
   } catch (error) {
+    /* istanbul ignore next */
     console.error('Create User Error: ', error.message);
+    throw error;
   }
-  return user;
 }
 
 module.exports = {

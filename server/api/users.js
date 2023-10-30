@@ -1,18 +1,33 @@
 const router = require('express').Router();
 const usersService = require('../services/usersService');
 
-router.post('/', async (req, res) => {
-  const userObj = {
-    email: req.body.email,
-    profile_picture: req.body.profile_picture,
-    created_at: req.body.created,
-    updated_at: req.body.updated,
-    sub: req.body.sub,
-  };
+// eslint-disable-next-line consistent-return
+const createUserRequestValidator = (req, res, next) => {
+  const { email, sub } = req.body;
 
-  const user = await usersService.createUser(userObj);
-  const newResourceUrl = `/api/users/${user.user_id}`;
-  res.status(201).location(newResourceUrl);
+  if (!email || !sub) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  next();
+};
+
+router.post('/', createUserRequestValidator, async (req, res) => {
+  try {
+    const userObj = {
+      email: req.body.email,
+      profile_picture: req.body.profile_picture,
+      created_at: req.body.created,
+      updated_at: req.body.updated,
+      sub: req.body.sub,
+    };
+    const user = await usersService.createUser(userObj);
+    const newResourceUrl = `/api/users/${user.user_id}`;
+    res.status(201).location(newResourceUrl).json(user);
+  } catch (error) {
+    console.error('API Handler - Error creating user: ', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 router.get('/:id', async (req, res) => {
