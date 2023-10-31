@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --exit --reporter mocha-lcov-reporter 'test/api/*.test.js'",
+    "test": "mocha --exit 'test/**/*.test.js'",
+    "test:coverage": "nyc mocha --exit --reporter mocha-lcov-reporter 'test/api/*.test.js'",
     "test:api": "mocha --detect-open-handles 'test/api/*.test.js'",
     "coverage": "nyc report --reporter=text-loc | coveralls",
     "seed": "node ./db/seed.js",

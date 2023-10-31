@@ -34,11 +34,24 @@ describe('User API Path Tests', () => {
   });
 
   it('Should return a 400 status when required fields are missing', async () => {
-    // createUserStub = sinon.stub(usersService, )
     const response = await request
       .post('/api/users')
       .send({});
 
     expect(response.status).to.equal(400);
+  });
+
+  it('Should return a status 201 and the newly created user', async () => {
+    const createUserStub = sinon.stub(usersService, 'createUser');
+    const fakeUser = {
+      user_id: 1,
+      first_name: undefined,
+      last_name: undefined,
+      email: 'test@example.com',
+      profilePicture: 'http://example.com/image.jpg',
+      createdAt: '2023-10-28T20:32:53.675Z',
+      updatedAt: '2023-10-28T20:32:53.675Z',
+      sub: 'auth0sub123',
+    };
   });
 });

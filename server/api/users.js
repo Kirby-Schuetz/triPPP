@@ -12,6 +12,16 @@ const createUserRequestValidator = (req, res, next) => {
   next();
 };
 
+router.get('/', async (req, res) => {
+  try {
+    const users = await usersService.listUsers();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('API Handler - Error listing users: ', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 router.post('/', createUserRequestValidator, async (req, res) => {
   try {
     const userObj = {

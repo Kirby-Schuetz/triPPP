@@ -17,9 +17,9 @@ const createUser = async ({
 
   const { rows: [user] } = await client.query(
     `
-    INSERT INTO users(email, profile_picture_url, created_at, updated_at, auth0_sub)
-    VALUES($1, $2, $3, $4, $5)
-    RETURNING *;
+      INSERT INTO users(email, profile_picture_url, created_at, updated_at, auth0_sub)
+      VALUES($1, $2, $3, $4, $5)
+      RETURNING *;
     `,
     [email, profilePicture, createdAtFormatted, updatedAtFormatted, sub],
   );
@@ -29,13 +29,23 @@ const createUser = async ({
 const getUserBySub = async (sub) => {
   const { rows: [user] } = await client.query(
     `
-    SELECT *
-    FROM users
-    WHERE auth0_sub = $1
+      SELECT *
+      FROM users
+      WHERE auth0_sub = $1
     `,
     [sub],
   );
   return user;
+};
+
+const listUsers = async () => {
+  const { rows: [users] } = await client.query(
+    `
+      SELECT *
+      FROM users;
+    `,
+  );
+  return users;
 };
 
 // const updateUser = () => {
@@ -45,4 +55,5 @@ const getUserBySub = async (sub) => {
 module.exports = {
   createUser,
   getUserBySub,
+  listUsers,
 };

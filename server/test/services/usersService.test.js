@@ -1,6 +1,6 @@
 const chai = require('chai');
 const sinon = require('sinon');
-const { createUser, getUser } = require('../../services/usersService');
+const { createUser, getUser, listUsers } = require('../../services/usersService');
 const usersRepository = require('../../db/repository/usersRepository');
 
 const { expect } = chai;
@@ -65,5 +65,30 @@ describe('Users Service Tests', () => {
     } catch (error) {
       expect(error.message).to.equal('Error creating user');
     }
+  });
+
+  it('Should return a list of users', async () => {
+    const listUsersStub = sinon.stub(usersRepository, 'listUsers');
+    const fakeUsers = [
+      {
+        userId: 1,
+        email: 'test@example.com',
+        profilePicture: 'http://example.com/image.jpg',
+        createdAt: '2023-10-28T20:32:53.675Z',
+        updatedAt: '2023-10-28T20:32:53.675Z',
+        sub: 'auth0sub123',
+      },
+      {
+        userId: 2,
+        email: 'test@example.com',
+        profilePicture: 'http://example.com/image.jpg',
+        createdAt: '2023-10-28T20:32:53.675Z',
+        updatedAt: '2023-10-28T20:32:53.675Z',
+        sub: 'auth0sub123',
+      },
+    ];
+    listUsersStub.resolves(fakeUsers);
+    const result = await listUsers();
+    expect(result).to.deep.equal(fakeUsers);
   });
 });
